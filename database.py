@@ -23,4 +23,4 @@ class SQLHelper:
         except:
             # occurs if writing and expecting nothing in return
             cursor.close()
-            return 'Success'
+            return True

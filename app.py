@@ -16,14 +16,14 @@ def signup():
             password = request.form['password']
             user = User()
             return user.createUser(email, password, name, phone, helper)
-        except Exception:
-            return {'status': 'failed', 'message': 'Unknown'}
+        except Exception as e:
+            return {'status': 'failed', 'message': str(e)}
     else:
         return render_template('signup.html')
 
 
 @app.route('/signin', methods=['POST', 'GET'])
-def login():
+def signin():
     if request.method == 'POST':
         try:
             email = request.form['email']
@@ -33,7 +33,12 @@ def login():
         except Exception as e:
             return {'status': 'failed', 'message': str(e)}
     else:
-        return render_template('signin.html')
+        return render_template('signin.html', message=' '.join(list(request.args['message'].split())))
+
+
+@app.route('/')
+def indexPage():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
