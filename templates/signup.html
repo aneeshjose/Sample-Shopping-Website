@@ -6,6 +6,7 @@
         </title>
     </head>
     <body>
+        <h1>Sign Up</h1>
         <form action="./signup" method="POST" name="form">
             <div id="namediv"></div>
             Name: <input type="text" name="name" placeholder="Full name"><br>
@@ -21,6 +22,8 @@
             Confirm: <input type="confirmPassword" name="confirm" placeholder="******"><br>
             
             <button type="button" onclick="validate()">Sign up</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="./signin">I already have an account</a>
         </form>
         <script>
             function validate(){
