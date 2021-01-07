@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, session
 from user import User
 from database import SQLHelper as Helper
 app = Flask(__name__)
@@ -42,4 +42,6 @@ def indexPage():
 
 
 if __name__ == '__main__':
+    app.secret_key = "QWERTY"
+    app.config['SESSION_TYPE'] = 'filesystem'
     app.run()

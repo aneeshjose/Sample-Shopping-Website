@@ -1,6 +1,9 @@
 import mysql.connector as sql
 
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, session
+
+import string
+import random
 
 
 class User:
@@ -27,13 +30,22 @@ class User:
         try:
             # check whether entered email id is already in the db
             # if not, send back to login page with error message
-
             if(len(dbHelper.query('select * from userauth where email=\'{}\''.format(email))) == 0):
-                return render_template('signin.html', message="email id not yet registered")
+                return render_template('signin.html', message="Email id not yet registered")
             queryRes = dbHelper.query(
                 'select * from userauth where email=\'{}\' and password=\'{}\''.format(email, password))
             if(len(queryRes) == 1):
+                session.pop('email', None)
+                session.pop('auth_key', None)
+                # login successful add random session variables
+                randomString = ''.join(random.choices(
+                    string.ascii_uppercase + string.digits, k=25))
+                dbHelper.query('insert into user_sessions(email,sessionid) values(\'{}\',\'{}\')'.format(
+                    email, randomString))
+                session['email'] = email
+                session['auth_key'] = randomString
                 return redirect('/')
+
             else:
                 return render_template('signin.html', message="Incorrect email id or password")
 
