@@ -16,6 +16,10 @@ class SQLHelper:
     def query(self, query):
         cursor = self.db.cursor()
         cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        return result
+        try:
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+        except:
+            cursor.close()
+            return 'Success'

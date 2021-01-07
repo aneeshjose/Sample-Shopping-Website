@@ -1,5 +1,87 @@
 <!DOCTYPE html>
 <html>
-    
+    <head>
+        <title>
+            SkillsMe Assignment Sign Up
+        </title>
+    </head>
+    <body>
+        <form action="./signup" method="POST" name="form">
+            <div id="namediv"></div>
+            Name: <input type="text" name="name" placeholder="Full name"><br>
+            
+            <div id = "phonediv"></div>
+            Phone: <input type="text" name ="phone" placeholder="10 digit phone number"><br>
+            
+            <div id = "emaildiv"></div>
+            Email: <input type="email" name="email" placeholder="Your email ID"><br>
+        
+            <div id = "passworddiv"></div>
+            Password: <input type="password" name="password" placeholder="******"> <br>
+            Confirm: <input type="confirmPassword" name="confirm" placeholder="******"><br>
+            
+            <button type="button" onclick="validate()">Sign up</button>
+        </form>
+        <script>
+            function validate(){
+                console.log('started');
+                var name= document.getElementsByName("name")[0].value;
+                var phone= document.getElementsByName("phone")[0].value;
+                var email= document.getElementsByName("email")[0].value;
+                var password= document.getElementsByName("password")[0].value;
+                var confirm= document.getElementsByName("confirm")[0].value;
 
+                if(name.length ==0 ){  
+                    document.getElementById('namediv').innerHTML = "Enter a name";
+                    return;
+                }else{
+                       document.getElementById('namediv').innerHTML ="";
+                }
+                if(phone.length ==0 ){  
+                    document.getElementById('phonediv').innerHTML = "Enter a phone";
+                    return;
+                }else{
+                       document.getElementById('phonediv').innerHTML ="";
+                }
+                if(phone.length !=10 ){  
+                    document.getElementById('phonediv').innerHTML = "Enter a valid phone number";
+                    return;
+                }else{
+                       document.getElementById('phonediv').innerHTML ="";
+                }
+                if(isNaN(phone)){  
+                    document.getElementById('phonediv').innerHTML = "Enter a valid phone number";
+                    return;
+                }else{
+                       document.getElementById('phonediv').innerHTML ="";
+                }
+                if(email.length ==0 ){  
+                    document.getElementById('emaildiv').innerHTML = "Enter a email";
+                    return;
+                }else{
+                       document.getElementById('emaildiv').innerHTML ="";
+                }
+                if(password.length ==0 ){  
+                    document.getElementById('passworddiv').innerHTML = "Enter a password";
+                    return;
+                }else{
+                       document.getElementById('passworddiv').innerHTML ="";
+                }
+                if(confirm.length ==0 ){  
+                    document.getElementById('passworddiv').innerHTML = "confirm password";
+                    return;
+                }else{
+                       document.getElementById('passworddiv').innerHTML ="";
+                }
+                if(password != confirm) {
+                    document.getElementById('passworddiv').innerHTML = "Passwords doesn't match";   
+                    return false;  
+                }  
+                else{
+                    document.getElementById('passworddiv').innerHTML ="";
+                    return document.form.submit();
+                }        
+            }
+        </script>
+    </body>
 </html>

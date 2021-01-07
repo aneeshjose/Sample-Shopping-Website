@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, render_template
 from user import User
 from databse import SQLHelper as Helper
 app = Flask(__name__)
@@ -6,7 +6,7 @@ app = Flask(__name__)
 helper = Helper()
 
 
-@app.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
         try:
@@ -19,10 +19,10 @@ def signup():
         except Exception:
             return {'status': 'failed', 'message': 'Unknown'}
     else:
-        return {'status': 'failed', 'message': 'UnhandledRequest'}
+        return render_template('signup.html')
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         try:

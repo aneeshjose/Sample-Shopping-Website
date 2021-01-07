@@ -6,8 +6,8 @@ class User:
     def createUser(self, email, password, name, phone, dbHelper):
         try:
             return dbHelper.query('insert into userauth(name,phone,email,password) values(\'{}\',{},\'{}\',\'{}\')'.format(name, phone, email, password))
-        except Exception:
-            return {'status': 'failed', 'message': 'UserAlreadyExists'}
+        except Exception as e:
+            return {'status': 'failed', 'message': str(e)}
 
     def loginUser(self, email, password, dbHelper):
         try:
