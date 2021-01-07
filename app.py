@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template
 from user import User
-from databse import SQLHelper as Helper
+from database import SQLHelper as Helper
 app = Flask(__name__)
 
 helper = Helper()
@@ -22,7 +22,7 @@ def signup():
         return render_template('signup.html')
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/signin', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         try:
@@ -33,7 +33,7 @@ def login():
         except Exception as e:
             return {'status': 'failed', 'message': str(e)}
     else:
-        return {'status': 'failed', 'message': 'UnhandledRequest'}
+        return render_template('signin.html')
 
 
 if __name__ == '__main__':

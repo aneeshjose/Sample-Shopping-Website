@@ -1,4 +1,39 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>SkillsMe Assignment Login</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        
+        <form action="./login" method="POST" name="form">
+            <div id = "emaildiv"></div>
+            Email: <input type="email" name="email" placeholder="Your email ID"><br>
+        
+            <div id = "passworddiv"></div>
+            Password: <input type="password" name="password" placeholder="******"> <br>
+            <button type="button" onclick="validate()">Sign in</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="./signup">I don't have an account</a>
+        </form>
+        <script>
+            function validate(){
+                var email= document.getElementsByName("email")[0].value;
+                var password= document.getElementsByName("password")[0].value;
+                if(name.length ==0 ){  
+                    document.getElementById('emaildiv').innerHTML = "Enter the email id";
+                    return;
+                }else{
+                       document.getElementById('emaildiv').innerHTML ="";
+                }
+                if(password.length ==0 ){  
+                    document.getElementById('passworddiv').innerHTML = "Enter a password";
+                    return;
+                }else{
+                       document.getElementById('passworddiv').innerHTML ="";
+                }
+            }
+        </script>
+    </body>
 
 </html>
