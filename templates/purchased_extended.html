@@ -81,6 +81,15 @@
     </style>
 </head>
 <body>
+    <div>
+        Address: {{ purchase['address'] }}
+    </div>
+    <div>
+        Card: {{ purchase['card'] }}
+    </div>
+    <div>
+       Total amount: {{ purchase['totalCost'] }}
+    </div>
     {% for product in products %}
         <div  class ="products" id = "{{ product['id'] }}">
             <div class="prodthumb">

@@ -55,6 +55,13 @@ class Purchase:
         items = self.dbHelper.query('select * from purchasedproducts where purchaseid=\'{}\''
                                     .format(purchaseid))
         products = []
+        purchases = self.dbHelper.query(
+            "select * from purchasehistory where userid='{}' and id='{}'".format(session['email'], purchaseid))
+        purchaseData = {
+            'address': purchases[0][2],
+            'card': str(purchases[0][3])[:4],
+            'totalCost': purchases[0][6],
+        }
         for item in items:
             count = item[3]
             cost = item[4]
@@ -72,4 +79,4 @@ class Purchase:
                 'cost': cost,
                 'totalcost': totalCost,
             })
-        return render_template('purchased_extended.html', products=products)
+        return render_template('purchased_extended.html', products=products, purchase=purchaseData)
