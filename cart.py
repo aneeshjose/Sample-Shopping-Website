@@ -5,7 +5,8 @@ from user import User
 class Cart:
     def addToCart(self, dbHelper, prodId):
 
-        if session['email'] is not None:
+        try:
+            session['email']
             # since the email is nol null, check the user session
             # also matches the user session auth_key
             User().checkUser(dbHelper)
@@ -23,7 +24,7 @@ class Cart:
                 'update cart set count=count+1 where userid=\'{}\' and productid=\'{}\''
                 .format(session['email'], prodId))
             return 'success'
-        else:
+        except:
             # The user has not signed in yet.
             # So add the product id to the cookie in comma seperated format
             # if there are no available cookies for this, creating a new one

@@ -13,8 +13,12 @@ helper = Helper()
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     # redirect to homepage if user already signedin
-    if(session['email'] is not None and session['auth_key'] is not None):
+    try:
+        session['email']
+        session['auth_key']
         return redirect('/')
+    except:
+        pass
 
     if request.method == 'POST':
         try:
@@ -33,8 +37,12 @@ def signup():
 @app.route('/signin', methods=['POST', 'GET'])
 def signin():
     # redirect to homepage if user already signedin
-    if(session['email'] is not None and session['auth_key'] is not None):
+    try:
+        session['email']
+        session['auth_key']
         return redirect('/')
+    except:
+        pass
 
     if request.method == 'POST':
         try:
@@ -45,12 +53,18 @@ def signin():
         except Exception as e:
             return {'status': 'failed', 'message': str(e)}
     else:
-        return render_template('signin.html', message=' '.join(list(request.args['message'].split())))
+        try:
+            return render_template('signin.html')
+        except Exception as e:
+            print(e)
+            return 'return'
+
+        # return render_template('signin.html', message=' '.join(list(request.args['message'].split())))
 
 
 @app.route('/logout')
 def logout():
-    User().logout(helper)
+    return User().logout(helper)
 
 
 @app.route('/', methods=['GET'])

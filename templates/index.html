@@ -11,8 +11,8 @@
             {% if userSignedIn %}
                 <button onclick="logout()"> Logout </button>
             {% else %}
-                <button> Sign In </button>
-                <button> Sign Up </button>
+                <button onclick="signIn()"> Sign In </button>
+                <button onclick="signUp()"> Sign Up </button>
             {% endif %}
         </div>
         <br>
@@ -32,7 +32,13 @@
         {% endfor %}
         <script>
             function redirect(category){
-                window.location = ('./?category='+category.value);
+                window.open('./?category='+category.value);
+            }
+            function signIn(){
+                window.open('./signin');
+            }
+            function signUp(){
+                window.open('./signup');
             }
             function addToCart(id){
                 var xhttp = new XMLHttpRequest();
@@ -50,7 +56,7 @@
                 document.searchform.submit();
             }
             function showCart(){
-                document.location.replace('./cart')
+                window.open('./cart',"_parent")
             }
         </script>
     </body>

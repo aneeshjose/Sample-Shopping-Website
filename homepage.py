@@ -3,13 +3,14 @@ from flask import render_template, session, request
 
 class HomePage:
     def __init__(self):
-        self.email = session['email']
-        self.auth_key = session['auth_key']
-        self.userSignedIn = False
+        try:
+            self.email = session['email']
+            self.auth_key = session['auth_key']
+            self.userSignedIn = True
+        except:
+            self.userSignedIn = False
 
     def fetchHomePage(self, dbHelper):
-        if session['email'] is not None:
-            self.userSignedIn = True
         try:
             category = dict(request.args)['category']
             outCategories = dbHelper.query(
