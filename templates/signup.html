@@ -4,29 +4,101 @@
         <title>
             SkillsMe Assignment Sign Up
         </title>
+        <style>
+            body{
+                font-family: 'Cairo', sans-serif;
+            }
+            input{
+                padding: 10px;
+                margin-top: 10px;
+            }
+            .heading{
+                font-size: large;
+                font-weight: 900;
+                margin: auto;
+            }
+            .error{
+                font-size: 13px;
+                color: red;
+            }
+            button{
+                background-color: white;
+                color: black;
+                border-radius: 5px;
+                border-color: black;
+                border-width: 1pt;
+                padding: 5px;
+                padding-left: 20px;
+                padding-right: 20px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                font-family: 'Cairo', sans-serif;
+            }
+            .boxborder{
+                margin-left: auto;
+                margin-right: auto;
+                transform: translateY(25%);
+                height: 50%;
+                width: auto;
+                border-style: solid;
+                border-width: 1px;
+                border-color: black;
+                border-radius: 1px;
+                padding: 30px;
+            }
+        </style>
     </head>
-    <body>
-        <h1>Sign Up</h1>
-        <div id="message">
-            {{ message }}
-        </div>
+    <body>        
         <form action="./signup" method="POST" name="form">
-            <div id="namediv"></div>
-            Name: <input type="text" name="name" placeholder="Full name"><br>
-            
-            <div id = "phonediv"></div>
-            Phone: <input type="text" name ="phone" placeholder="10 digit phone number"><br>
-            
-            <div id = "emaildiv"></div>
-            Email: <input type="email" name="email" placeholder="Your email ID"><br>
-        
-            <div id = "passworddiv"></div>
-            Password: <input type="password" name="password" placeholder="******"> <br>
-            Confirm: <input type="confirmPassword" name="confirm" placeholder="******"><br>
-            
-            <button type="button" onclick="validate()">Sign up</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="./signin">I already have an account</a>
+            <table class="boxborder">
+                <tr>
+                    <td colspan="2">Sign Up</td>
+                </tr>
+                <tr>
+                    <td id="message">
+                        {{ message }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td id="namediv" class="error"></td>
+                </tr>
+                <tr>
+                    <td>Name:</td> 
+                    <td><input type="text" name="name" placeholder="Full name"></td>    
+                </tr>
+                
+                <tr>
+                    <td id = "phonediv" class="error"></td>
+                </tr>
+                <tr>
+                    <td>Phone:</td> 
+                    <td><input type="text" name ="phone" placeholder="10 digit phone number"></td>
+                </tr>
+                
+                <tr>
+                    <td id = "emaildiv" class="error"></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="email" name="email" placeholder="Your email ID"></td>
+                </tr>
+                    <tr>
+                        <td id = "passworddiv" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td> 
+                        <td><input type="password" name="password" placeholder="******"></td>
+                    </tr>
+                    <tr>
+                        <td>Confirm:</td>
+                        <td><input type="password" name="confirm" placeholder="******"></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" onclick="validate()">Sign up</button></td>
+                        <td><a href="./signin">I already have an account</a></td>
+                    </tr>     
+            </table>
         </form>
         <script>
             function validate(){
