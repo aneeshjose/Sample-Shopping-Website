@@ -5,8 +5,11 @@ class HomePage:
     def __init__(self):
         self.email = session['email']
         self.auth_key = session['auth_key']
+        self.userSignedIn = False
 
     def fetchHomePage(self, dbHelper):
+        if session['email'] is not None:
+            self.userSignedIn = True
         try:
             category = dict(request.args)['category']
             outCategories = dbHelper.query(
@@ -14,8 +17,13 @@ class HomePage:
             outProducts = dbHelper.query(
                 'select * from products where category = \'{}\''.format(category))
 
-            return render_template('index.html', categories=outCategories, products=outProducts)
+            return render_template('index.html',
+                                   categories=outCategories,
+                                   products=outProducts,
+                                   userSignedIn=self.userSignedIn)
         except Exception as e:
             print(e)
-            return render_template('index.html', categories=dbHelper.query(
-                'select distinct category from products'))
+            return render_template('index.html',
+                                   categories=dbHelper.query(
+                                       'select distinct category from products'),
+                                   userSignedIn=self.userSignedIn)

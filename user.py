@@ -1,6 +1,6 @@
 import mysql.connector as sql
 
-from flask import render_template, redirect, url_for, session
+from flask import render_template, redirect, url_for, session, request, make_response
 
 import string
 import random
@@ -9,6 +9,8 @@ import random
 class User:
 
     def createUser(self, email, password, name, phone, dbHelper):
+        resp = make_response()
+        resp.set_cookie('cart', '')
         try:
             # whether the user already exists
             currentUser = dbHelper.query(
@@ -27,6 +29,8 @@ class User:
             return render_template('signup.html', message=str(e))
 
     def loginUser(self, email, password, dbHelper):
+        resp = make_response()
+        resp.set_cookie('cart', '')
         try:
             # check whether entered email id is already in the db
             # if not, send back to login page with error message
@@ -52,3 +56,16 @@ class User:
         except Exception as e:
             # unhandled exception
             return render_template('signin.html', message=str(e))
+
+    def logout(self, dbHelper):
+        # clear the session variables from local and db
+        # pop cookies from local
+        # and redirect back to sign in
+        dbHelper.query('delete from user_sessions where email=\'{}\' and sessionid=\'{}\''.format(
+            session['email'], session['auth_key']))
+        resp = make_response()
+        resp.set_cookie('cart', '')
+        session.pop('email', None)
+        session.pop('auth_key', None)
+
+        return redirect(url_for('signin'))

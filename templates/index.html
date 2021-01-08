@@ -2,6 +2,12 @@
 <html>
     <head><title>Skillsme Assignment</title></head>
     <body>
+        {% if userSignedIn %}
+            <button onclick="logout()"> Logout </button>
+        {% else %}
+            <button> Sign In </button>
+            <button> Sign Up </button>
+        {% endif %}
         <tr>
             {% for v in categories %}
                 <td><button value="{{ v[0] }}" onclick="redirect(this)">{{ v[0] }}</button></td>
@@ -25,6 +31,9 @@
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("GET", "./addtocart/"+id, true);
                 xhttp.send();
+            }
+            function logout(){
+                window.location.replace('./logout')
             }
         </script>
     </body>

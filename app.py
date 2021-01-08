@@ -39,6 +39,11 @@ def signin():
         return render_template('signin.html', message=' '.join(list(request.args['message'].split())))
 
 
+@app.route('/logout')
+def logout():
+    User().logout(helper)
+
+
 @app.route('/', methods=['GET'])
 def indexPage():
     return HomePage().fetchHomePage(helper)
