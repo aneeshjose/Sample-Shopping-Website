@@ -37,8 +37,19 @@ class Purchase:
                 self.dbHelper.query('insert into purchasedproducts(purchaseid,user,product,count,individualcost) values(\'{}\',\'{}\',\'{}\',{},{})'
                                     .format(purchaseid, items[0], items[1], items[2], prod[0][3]))
             self.dbHelper.query(
-                "insert into purchasehistory(id,address,card,otp,time,totalcost) values('{}','{}',{},{},{},{})"
-                .format(purchaseid, address, int(card), int(otp), int(time.time()), int(totalCostServer)))
+                "insert into purchasehistory(userid,id,address,card,otp,time,totalcost) values('{}','{}','{}',{},{},{},{})"
+                .format(email, purchaseid, address, int(card), int(otp), int(time.time()), int(totalCostServer)))
             self.dbHelper.query(
                 'delete from cart where userid=\'{}\''.format(email))
             return redirect('/')
+
+    def getHistory(self):
+        purchases = self.dbHelper.query(
+            "select * from purchasehistory where userid='{}'".format(session['email']))
+        purchases = [list(x) for x in purchases]
+        for p in purchases:
+            p[5] = time.ctime(p[5])
+        return render_template('history.html', purchases=purchases)
+
+    def historyExtended(self):
+        pass
