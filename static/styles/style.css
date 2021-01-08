@@ -1,0 +1,11 @@
+body{
+    font-family: 'Cairo', sans-serif;
+}
+input{
+    padding: 10px;
+    margin: 10px;
+}
+
+#message{
+    font-size: 15px;
+}

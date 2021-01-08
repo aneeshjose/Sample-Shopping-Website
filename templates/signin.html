@@ -1,22 +1,83 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SkillsMe Assignment Login</title>
+        <title>Login</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400&display=swap" rel="stylesheet">
+        <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}"> -->
+        <style>
+            body{
+                font-family: 'Cairo', sans-serif;
+            }
+            input{
+                padding: 10px;
+                margin-top: 10px;
+            }
+            .heading{
+                font-size: large;
+                font-weight: 900;
+                margin: auto;
+            }
+            .error{
+                font-size: 13px;
+                color: red;
+            }
+            button{
+                background-color: white;
+                color: black;
+                border-radius: 5px;
+                border-color: black;
+                border-width: 1pt;
+                padding: 5px;
+                padding-left: 20px;
+                padding-right: 20px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                font-family: 'Cairo', sans-serif;
+            }
+            .boxborder{
+                margin-left: auto;
+                margin-right: auto;
+                transform: translateY(25%);
+                height: 50%;
+                width: auto;
+                border-style: solid;
+                border-width: 1px;
+                border-color: black;
+                border-radius: 1px;
+                padding: 30px;
+            }
+        </style>
     </head>
     <body>
-        <h1>Login</h1>
-        <div id="message">
-            {{ message }}
-        </div>
-        <form action="./signin" method="POST" name="form">
-            <div id = "emaildiv"></div>
-            Email: <input type="email" name="email" placeholder="Your email ID"><br>
         
-            <div id = "passworddiv"></div>
-            Password: <input type="password" name="password" placeholder="******"> <br>
-            <button type="button" onclick="validate()">Sign in</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="./signup">I don't have an account</a>
+        <form action="./signin" method="POST" name="form">
+            <table class="boxborder">
+                <tr>
+                    <td rowspan="2" class="heading">Login</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="message">
+                            {{ message }}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="error" id = "emaildiv"></tr>
+                <tr>
+                    <td>Email:</td>
+                    <td> <input type="email" name="email" placeholder="Your email ID"></td>
+                </tr>
+                <tr class="error" id = "passworddiv"></tr>
+                <tr>
+                    <td>Password:</td> 
+                    <td><input type="password" name="password" placeholder="******"></td>
+                </tr>
+                <tr>
+                    <td><button type="button" onclick="validate()">Sign in</button></td>
+                    <td><a href="./signup">I don't have an account</a></td>
+                </tr>
+            </table>
         </form>
         <script>
             function validate(){
