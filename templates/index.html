@@ -16,7 +16,7 @@
             {% endif %}
         </div>
         <br>
-        <button class="cartbutton" onclick="showCart()">Cart</button>
+        <a href="./cart"><button class="cartbutton">Cart</button></a>
         <div class="categorycontainer">
             {% for v in categories %}
                 <td><button class="categorybutton" value="{{ v[0] }}" onclick="redirect(this)">{{ v[0] }}</button></td>
@@ -32,7 +32,7 @@
         {% endfor %}
         <script>
             function redirect(category){
-                window.open('./?category='+category.value);
+                window.location.replace('./?category='+category.value);
             }
             function signIn(){
                 window.open('./signin');
@@ -54,9 +54,6 @@
                     return;
                 }
                 document.searchform.submit();
-            }
-            function showCart(){
-                window.open('./cart',"_parent")
             }
         </script>
     </body>

@@ -32,7 +32,10 @@
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", "./subtractcart/"+id, true);
             xhttp.send();
-            document.getElementById("count"+id).innerHTML=Number(document.getElementById("count"+id).innerHTML)-1;
+            var count = Number(document.getElementById("count"+id).innerHTML);
+            if(count== 1)
+                return
+            document.getElementById("count"+id).innerHTML=count-1;
         }
         function removeFromCart(id){
             var xhttp = new XMLHttpRequest();
