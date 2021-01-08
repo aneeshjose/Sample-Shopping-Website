@@ -69,3 +69,15 @@ class User:
         session.pop('auth_key', None)
 
         return redirect(url_for('signin'))
+
+    def checkUser(self, dbHelper):
+        try:
+            email = session['email']
+            auth_key = session['auth_key']
+
+            if(email is None or auth_key is None):
+                raise Exception
+            if len(dbHelper.query('select * from user_sessions where email=\'{}\' and sessionid=\'{}\'')):
+                raise Exception
+        except:
+            return redirect(url_for('signin'))

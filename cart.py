@@ -1,9 +1,12 @@
 from flask import session, make_response, request
+from user import User
 
 
 class Cart:
     def addToCart(self, dbHelper, prodId):
+
         if session['email'] is not None:
+            User().checkUser(dbHelper)
             # check whether the product is already added to cart by the user
             # if not added, insert the values
             #  if added, increment the count by 1
