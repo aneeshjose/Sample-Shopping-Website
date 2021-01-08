@@ -4,6 +4,7 @@ from user import User
 from homepage import HomePage
 from cart import Cart
 from search import Search
+from account import Account
 
 app = Flask(__name__)
 
@@ -95,6 +96,21 @@ def search():
 @app.route('/cart')
 def cart():
     return Cart().displayCart(helper)
+
+
+@app.route('/account')
+def account():
+    return Account(helper).sendAccountInfo()
+
+
+@app.route('/subscribe')
+def subscribe():
+    return Account(helper).subscribe()
+
+
+@app.route('/unsubscribe')
+def unsubscribe():
+    return Account(helper).unsubscribe()
 
 
 if __name__ == '__main__':

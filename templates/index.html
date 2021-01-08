@@ -10,6 +10,7 @@
         <div class="accountdata">
             {% if userSignedIn %}
                 <button onclick="logout()"> Logout </button>
+                <a href="./account"><button class="button">Account</button></a>
             {% else %}
                 <button onclick="signIn()"> Sign In </button>
                 <button onclick="signUp()"> Sign Up </button>

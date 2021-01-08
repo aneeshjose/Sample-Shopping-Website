@@ -4,19 +4,34 @@
     <title>My Account</title>
 </head>
 <body>
-    {% if subscribed %}
-        <button class="unsubscribe">Unsubscribe</button>
-    {% else %}
-        <button class="subscribe">Subscribe</button>
-    {% endif %}
+    <div id="substatus">
+        {% if subscribed %}
+            <button class="unsubscribe" onclick="changeSubStatus('{{ subscribed }}')">Unsubscribe</button>
+        {% else %}
+            <button class="subscribe" onclick="changeSubStatus('{{ subscribed }}')">Subscribe</button>
+        {% endif %}
+    </div>
     <a href="./purchase-history"><button class="button">Purchase history</button></a>
     <a href="./my-cards"><button class="button">My Cards</button></a>
     <button onclick="logout()"> Logout </button>
-    
+
     <script>
         function logout(){
             window.location.href = ('./logout');
         }
+        function changeSubStatus(status){
+            var xhttp = new XMLHttpRequest();
+            if(status=='False'){
+                xhttp.open("GET", "./subscribe", true);
+                document.getElementById('substatus').innerHTML = '<button class="unsubscribe" onclick="changeSubStatus(\'{{ subscribed }}\')">Unsubscribe</button>';
+            }
+            else{
+                xhttp.open("GET", "./unsubscribe", true);  
+                document.getElementById('substatus').innerHTML = '<button class="subscribe" onclick="changeSubStatus(\'{{ subscribed }}\')">Subscribe</button>';
+            }    
+            xhttp.send(); 
+        }
+
     </script>
 </body>
 </html>
