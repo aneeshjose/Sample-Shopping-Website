@@ -11,6 +11,10 @@ helper = Helper()
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
+    # redirect to homepage if user already signedin
+    if(session['email'] is not None and session['auth_key'] is not None):
+        return redirect('/')
+
     if request.method == 'POST':
         try:
             name = request.form['name']
@@ -27,6 +31,10 @@ def signup():
 
 @app.route('/signin', methods=['POST', 'GET'])
 def signin():
+    # redirect to homepage if user already signedin
+    if(session['email'] is not None and session['auth_key'] is not None):
+        return redirect('/')
+
     if request.method == 'POST':
         try:
             email = request.form['email']
