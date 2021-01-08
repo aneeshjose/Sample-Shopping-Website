@@ -34,12 +34,22 @@ class Cart:
             resp.set_cookie('cart', available+','+prodId)
             return 'success'
 
+    def subtractcart(self, dbHelper, id):
+        dbHelper.query("update cart set count=count-1 where userid='{}' and productid='{}'"
+                       .format(session['email'], id))
+        return 'success'
+
+    def removeFromCart(self, dbHelper, id):
+        dbHelper.query("delete from cart where userid='{}' and productid='{}'"
+                       .format(session['email'], id))
+        return 'success'
+
     def displayCart(self, dbHelper):
         email = session['email']
-        cartProducts = dbHelper.query('select productid from cart where userid=\'{}\''
+        cartProducts = dbHelper.query('select productid,count from cart where userid=\'{}\''
                                       .format(email))
         prodEnlarged = []
         for id in cartProducts:
-            prodEnlarged.append(dbHelper.query(
-                "select * from products where id='{}'".format(id[0])))
+            prodEnlarged.append({'item': dbHelper.query(
+                "select * from products where id='{}'".format(id[0])), 'count': id[1]})
         return render_template('cart.html', products=prodEnlarged)

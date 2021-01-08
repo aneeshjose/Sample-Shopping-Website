@@ -63,6 +63,16 @@ def addToCart(prodid):
     return Cart().addToCart(helper, prodid)
 
 
+@app.route('/removefromcart/<prodid>')
+def removeFromCart(prodid):
+    return Cart().removeFromCart(helper, prodid)
+
+
+@app.route('/subtractcart/<prodid>')
+def subtractcart(prodid):
+    return Cart().subtractcart(helper, prodid)
+
+
 @app.route('/search', methods=['GET'])
 def search():
     return Search().search(helper)

@@ -3,17 +3,44 @@
 <head>
     <title>Cart</title>
 </head>
-<body>
+<body>    
     {% for product in products %}
-        {% for data in product %}
-            <div  class ="products">
+        {% for data in product['item'] %}
+            <div  class ="products" id = "{{ data[1] }}">
                 <div class="prodthumb"><img src="{{ data[4] }}"></div>
-                <div class="productname" id="{{ data[1] }}">{{ data[0] }}</div>
+                <div class="productname">{{ data[0] }}</div>
                 <div class="costproduct">${{ data[3] }}</div>
                 <div class ="productcategory">in {{ data[2] }}</div>
-                <button onclick="addToCart('{{ data[1] }}')">Add to cart</button>
+
+                <button onclick="subtractCart('{{ data[1] }}')">-</button>
+                <div id="count{{data[1]}}">{{product['count']}}</div>
+                <button onclick="addToCart('{{ data[1] }}')">+</button>
+                <button onclick="removeFromCart('{{ data[1] }}')">Remove from cart</button>
             </div>
         {% endfor %}
     {% endfor %}
+    <script>
+        
+        function addToCart(id){
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "./addtocart/"+id, true);
+            xhttp.send();
+            document.getElementById("count"+id).innerHTML=Number(document.getElementById("count"+id).innerHTML)+1;
+
+        }
+        function subtractCart(id){
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "./subtractcart/"+id, true);
+            xhttp.send();
+            document.getElementById("count"+id).innerHTML=Number(document.getElementById("count"+id).innerHTML)-1;
+        }
+        function removeFromCart(id){
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "./removefromcart/"+id, true);
+            xhttp.send();
+            document.getElementById(id).innerHTML="";
+        }
+        
+    </script>
 </body>
 </html>
