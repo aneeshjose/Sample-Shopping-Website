@@ -119,6 +119,11 @@ def checkout():
     return Purchase(helper).checkout()
 
 
+@app.route('/buy', methods=['POST'])
+def buy():
+    return Purchase(helper).buy()
+
+
 if __name__ == '__main__':
     app.secret_key = "QWERTY"
     app.config['SESSION_TYPE'] = 'filesystem'
