@@ -2,11 +2,90 @@
 <html>
 <head>
     <title>Purchase history</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body{
+            font-family: 'Cairo', sans-serif;
+        }
+        input{
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .heading{
+            font-size: large;
+            font-weight: 900;
+            margin: auto;
+        }
+        .error{
+            font-size: 13px;
+            color: red;
+        }
+        button{
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            border-color: black;
+            border-width: 1pt;
+            padding: 5px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .boxborder{
+            margin-left: auto;
+            margin-right: auto;
+            transform: translateY(25%);
+            height: 50%;
+            width: auto;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            border-radius: 1px;
+            padding: 30px;
+        }
+        .products{
+            display: inline-block;
+            border: 1px solid black;
+            width: max-content;
+            margin: 10px;
+            padding: 10px;
+            padding-top:30px;
+        }
+        .searchbox{
+            width: 300px;
+            border-radius: 5px;
+            border: 1pt solid black;
+        }
+        .smallbutton{
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            border-color: black;
+            border-width: 1pt;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-family: 'Cairo', sans-serif;
+            display: inline-block;
+            zoom: 1;
+        }
+        .count{
+            width: max-content;
+        }   
+    </style>
 </head>
 <body>
 
     {% for purchase in purchases %}
-        <a href="./purchase-history/{{ purchase[1] }}"><button>{{ purchase[5] }}</button></a>
+        <div>
+            <a href="./purchase-history/{{ purchase[1] }}"><button>{{ purchase[5] }}</button></a>
+        </div>
     {% endfor %}
     
 </body>
