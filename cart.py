@@ -93,7 +93,10 @@ class Cart:
                                  for id, count in self.prods.items()]
             # self.cartProducts =
         prodEnlarged = []
+        cost = 0
         for id in self.cartProducts:
-            prodEnlarged.append({'item': dbHelper.query(
-                "select * from products where id='{}'".format(id[0])), 'count': id[1]})
-        return render_template('cart.html', products=prodEnlarged)
+            prod = dbHelper.query(
+                "select * from products where id='{}'".format(id[0]))
+            prodEnlarged.append({'item': prod, 'count': id[1]})
+            cost += (prod[0][3] * id[1])
+        return render_template('cart.html', products=prodEnlarged, cost=cost)

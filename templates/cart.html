@@ -9,7 +9,7 @@
             <div  class ="products" id = "{{ data[1] }}">
                 <div class="prodthumb"><img src="{{ data[4] }}"></div>
                 <div class="productname">{{ data[0] }}</div>
-                <div class="costproduct">${{ data[3] }}</div>
+                <div class="costproduct" id="cost{{ data[1] }}">${{ data[3] }}</div>
                 <div class ="productcategory">in {{ data[2] }}</div>
 
                 <button onclick="subtractCart('{{ data[1] }}')">-</button>
@@ -19,28 +19,65 @@
             </div>
         {% endfor %}
     {% endfor %}
+    <div id="totalcost">{{ cost }}</div>
     <script>
         
         function addToCart(id){
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", "./addtocart/"+id, true);
             xhttp.send();
-            document.getElementById("count"+id).innerHTML=Number(document.getElementById("count"+id).innerHTML)+1;
+            var countDiv = document.getElementById("count"+id);
+            var count = Number(countDiv.innerHTML)+1;
+            countDiv.innerHTML=count;
+
+            var totalCostDiv = document.getElementById('totalcost');
+            var totalCost = Number(totalCostDiv.innerHTML);
+
+            costDiv = document.getElementById('cost'+id);
+            cost = Number((costDiv.innerHTML).slice(1));
+            totalCostDiv.innerHTML = totalCost + cost;
 
         }
         function subtractCart(id){
+            var countDiv = document.getElementById("count"+id);
+            var count = Number(countDiv.innerHTML);
+            if(count <= 1)
+                return;
+
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", "./subtractcart/"+id, true);
             xhttp.send();
-            var count = Number(document.getElementById("count"+id).innerHTML);
-            if(count== 1)
-                return
-            document.getElementById("count"+id).innerHTML=count-1;
+            
+            countDiv.innerHTML=count-1;
+
+            var totalCostDiv = document.getElementById('totalcost');
+            var totalCost = Number(totalCostDiv.innerHTML);
+
+            costDiv = document.getElementById('cost'+id);
+            cost = Number((costDiv.innerHTML).slice(1));
+            totalCostDiv.innerHTML = totalCost - cost;
         }
         function removeFromCart(id){
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", "./removefromcart/"+id, true);
             xhttp.send();
+            
+            var countDiv = document.getElementById("count"+id);
+            var count = Number(countDiv.innerHTML);
+            console.log(count);
+
+            var totalCostDiv = document.getElementById('totalcost');
+            var totalCost = Number(totalCostDiv.innerHTML);
+            console.log(totalCost);
+
+            costDiv = document.getElementById('cost'+id);
+            cost = Number((costDiv.innerHTML).slice(1));
+
+            console.log(cost);
+            console.log(totalCost - cost*count);
+
+            totalCostDiv.innerHTML = totalCost - cost*count;
+            
             document.getElementById(id).innerHTML="";
         }
         
