@@ -5,6 +5,7 @@
 </head>
 <body>
     <div id="substatus">
+        <div class="name">{{ name }}</div>
         {% if subscribed %}
             <button class="unsubscribe" onclick="changeSubStatus('{{ subscribed }}')">Unsubscribe</button>
         {% else %}

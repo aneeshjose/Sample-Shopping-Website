@@ -13,9 +13,14 @@ class Account:
 
     def sendAccountInfo(self):
         User().checkUser(self.dbHelper)
+        accountInfo = self.dbHelper.query(
+            "select name from userauth where email='{}'".format(self.email))[0]
+
         subscribed = len(self.dbHelper.query(
             "select * from subscriptions where userid='{}'".format(self.email))) == 1
-        return render_template('account.html', subscribed=subscribed)
+        return render_template('account.html',
+                               subscribed=subscribed,
+                               name=accountInfo[0])
 
     def subscribe(self):
         User().checkUser(self.dbHelper)
