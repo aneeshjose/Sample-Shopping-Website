@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+</head>
+<body>
+    <div id="address">
+        {{ address }}
+    </div>
+    <div id="totalcost">
+        ${{ totalCost }}
+    </div>
+    <div id="error"></div>
+    <form action="./buy" name="cardDetails" method ="POST">
+        Card number: <input type="text" name="card" id="card"><br>
+        OTP: <input type="text" name="otp" id="otp"><br><br>
+        <button type="button" onclick="validate()">Purchase</button>
+    </form>
+
+    <script>
+        function validate(){
+            var card = document.getElementsByName('card')[0].value;
+            var otp = document.getElementsByName('otp')[0].value;
+            if(card.length==0){
+                document.getElementById('error').innerHTML = 'Enter card number';
+                return;
+            }
+            if(otp.length==0){
+                document.getElementById('error').innerHTML = 'Enter OTP';
+                return;
+            }
+            if(isNaN(card)){
+                document.getElementById('error').innerHTML = 'Enter a valid card number';
+                return;
+            }
+            if(isNaN(otp)){
+                document.getElementById('error').innerHTML = 'Enter a valid OTP';
+                return;
+            }
+            else{
+                var address = document.createElement('input');
+                address.setAttribute('type', 'hidden');
+                address.setAttribute('name', 'address');
+                address.setAttribute('value', '{{ address }}');
+
+
+                var cost = document.createElement('input');
+                cost.setAttribute('type', 'hidden');
+                cost.setAttribute('name', 'totalcost');
+                cost.setAttribute('value', '{{ totalCost }}');
+
+                document.cardDetails.appendChild(address);
+                document.cardDetails.appendChild(cost);
+                document.cardDetails.submit();
+            }
+
+        }
+    </script>
+</body>
+</html>

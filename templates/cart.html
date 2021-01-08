@@ -20,7 +20,26 @@
         {% endfor %}
     {% endfor %}
     <div id="totalcost">{{ cost }}</div>
+    <form action="./checkout" method="POST" name="address"> 
+        <div id="error"></div>
+        <textarea type="text" name ="address" id="address"></textarea><br>
+        <button type="button" class="button" onclick="validate()">Checkout</button>
+    </form>
     <script>
+
+        function validate(){
+            if(document.getElementById("address").value.length > 0){
+                var cost = document.createElement('input');
+                cost.setAttribute('type', 'text');
+                cost.setAttribute('name', 'totalcost');
+                cost.setAttribute('value', '{{ cost }}');
+                document.address.appendChild(cost);
+                document.address.submit();
+            }else{
+                document.getElementById("error").innerHTML = "Enter an address";
+                return;
+            }            
+        }
         
         function addToCart(id){
             var xhttp = new XMLHttpRequest();

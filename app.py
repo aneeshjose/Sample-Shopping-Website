@@ -5,6 +5,7 @@ from homepage import HomePage
 from cart import Cart
 from search import Search
 from account import Account
+from purchase import Purchase
 
 app = Flask(__name__)
 
@@ -111,6 +112,11 @@ def subscribe():
 @app.route('/unsubscribe')
 def unsubscribe():
     return Account(helper).unsubscribe()
+
+
+@app.route('/checkout', methods=['POST'])
+def checkout():
+    return Purchase(helper).checkout()
 
 
 if __name__ == '__main__':
