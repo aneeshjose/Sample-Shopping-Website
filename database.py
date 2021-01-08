@@ -20,7 +20,11 @@ class SQLHelper:
             result = cursor.fetchall()
             cursor.close()
             return result
-        except:
-            # occurs if writing and expecting nothing in return
+        except Exception as e:
+            if 'insert into' in query:
+                # occurs if writing and expecting nothing in return
+                return True
+            else:
+                # unexpected error occured
+                return e
             cursor.close()
-            return True

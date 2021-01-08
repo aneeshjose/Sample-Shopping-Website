@@ -1,7 +1,9 @@
 from flask import Flask, redirect, url_for, request, render_template, session
+from database import SQLHelper as Helper
 from user import User
 from homepage import HomePage
-from database import SQLHelper as Helper
+from cart import Cart
+
 app = Flask(__name__)
 
 helper = Helper()
@@ -40,6 +42,11 @@ def signin():
 @app.route('/', methods=['GET'])
 def indexPage():
     return HomePage().fetchHomePage(helper)
+
+
+@app.route('/addtocart/<prodid>')
+def addToCart(prodid):
+    return Cart().addToCart(helper, prodid)
 
 
 if __name__ == '__main__':
