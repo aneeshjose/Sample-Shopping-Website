@@ -3,6 +3,7 @@ from database import SQLHelper as Helper
 from user import User
 from homepage import HomePage
 from cart import Cart
+from search import Search
 
 app = Flask(__name__)
 
@@ -60,6 +61,11 @@ def indexPage():
 @app.route('/addtocart/<prodid>')
 def addToCart(prodid):
     return Cart().addToCart(helper, prodid)
+
+
+@app.route('/search', methods=['GET'])
+def search():
+    return Search().search(helper)
 
 
 if __name__ == '__main__':

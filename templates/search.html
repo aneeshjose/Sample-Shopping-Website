@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search for {{ query }}</title>
+</head>
+<body>
+    <form name="searchform" action="search" method="GET">
+        <input class="searchbox" type="text" name="q">
+        <button type="button" class="searchbutton" onclick="search()">Search</button>
+    </form>
+    <br>
+    {% for data in result %}
+        <div  class ="product">
+            <div class="prodthumb"><img src="{{ data[4] }}"></div>
+            <div class="productname" id="{{ data[1] }}">{{ data[0] }}</div>
+            <div class="costproduct">${{ data[3] }}</div>
+            <div class ="productcategory">in {{ data[2] }}</div>
+            <button onclick="addToCart('{{ data[1] }}')">Add to cart</button>
+        </div>
+    {% endfor %}
+</body>
+</html>

@@ -2,18 +2,25 @@
 <html>
     <head><title>Skillsme Assignment</title></head>
     <body>
-        {% if userSignedIn %}
-            <button onclick="logout()"> Logout </button>
-        {% else %}
-            <button> Sign In </button>
-            <button> Sign Up </button>
-        {% endif %}
-        <tr>
+        <form name="searchform" action="search" method="GET">
+            <input class="searchbox" type="text" name="q">
+            <button type="button" class="searchbutton" onclick="search()">Search</button>
+        </form>
+        <br>
+        <div class="accountdata">
+            {% if userSignedIn %}
+                <button onclick="logout()"> Logout </button>
+            {% else %}
+                <button> Sign In </button>
+                <button> Sign Up </button>
+            {% endif %}
+        </div>
+        <br>
+        <div class="categorycontainer">
             {% for v in categories %}
-                <td><button value="{{ v[0] }}" onclick="redirect(this)">{{ v[0] }}</button></td>
+                <td><button class="categorybutton" value="{{ v[0] }}" onclick="redirect(this)">{{ v[0] }}</button></td>
             {% endfor %}
-        </tr>
-        {{ products }}
+        </div>
         {% for data in products %}
             <div  class ="products">
                 <div class="prodthumb"><img src="{{ data[4] }}"></div>
@@ -33,6 +40,13 @@
             }
             function logout(){
                 window.location.replace('./logout')
+            }
+            function search(){
+                var query = document.getElementsByName("q")[0];
+                if(query==null|| query.length==0){
+                    return;
+                }
+                document.searchform.submit();
             }
         </script>
     </body>
