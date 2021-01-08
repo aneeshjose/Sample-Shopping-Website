@@ -4,9 +4,9 @@
     <title>Purchase history</title>
 </head>
 <body>
-    
+
     {% for purchase in purchases %}
-        <button>{{ purchase[5] }}</button>
+        <a href="./purchase-history/{{ purchase[1] }}"><button>{{ purchase[5] }}</button></a>
     {% endfor %}
     
 </body>

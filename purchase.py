@@ -51,5 +51,25 @@ class Purchase:
             p[5] = time.ctime(p[5])
         return render_template('history.html', purchases=purchases)
 
-    def historyExtended(self):
-        pass
+    def historyExtended(self, purchaseid):
+        items = self.dbHelper.query('select * from purchasedproducts where purchaseid=\'{}\''
+                                    .format(purchaseid))
+        products = []
+        for item in items:
+            count = item[3]
+            cost = item[4]
+            id = item[2]
+            totalCost = count * cost
+            product = self.dbHelper.query(
+                'select name,category from products where id=\'{}\''.format(item[2]))
+            name = product[0][0]
+            category = product[0][1]
+            products.append({
+                'id': id,
+                'name': name,
+                'category': category,
+                'count': count,
+                'cost': cost,
+                'totalcost': totalCost,
+            })
+        return render_template('purchased_extended.html', products=products)

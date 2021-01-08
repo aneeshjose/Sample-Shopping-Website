@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ time }}</title>
+</head>
+<body>
+    {% for product in products %}
+        <div  class ="products" id = "{{ product['id'] }}">
+            <div class="prodthumb">
+                <!-- <img src="{{ product['image'] }}"> -->
+            </div>
+            <div class="productname">{{ product['name'] }}</div>
+            <div class="costproduct">Cost per item: ${{ product['cost'] }}</div>
+            <div class ="productcategory">in {{ product['category'] }}</div>
+            <div >Count {{ product['count'] }}</div>
+            <div class="costproduct">Total cost: ${{ product['totalcost'] }}</div>
+        </div>
+    {% endfor %}
+</body>
+</html>

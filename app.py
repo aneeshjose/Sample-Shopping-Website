@@ -129,6 +129,11 @@ def history():
     return Purchase(helper).getHistory()
 
 
+@app.route('/purchase-history/<purchaseid>')
+def historyExtended(purchaseid):
+    return Purchase(helper).historyExtended(purchaseid)
+
+
 if __name__ == '__main__':
     app.secret_key = "QWERTY"
     app.config['SESSION_TYPE'] = 'filesystem'
