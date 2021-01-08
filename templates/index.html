@@ -1,4 +1,28 @@
 <!DOCTYPE html>
 <html>
-    
+    <head><title>Skillsme Assignment</title></head>
+    <body>
+        <tr>
+            {% for v in categories %}
+                <td><button value="{{ v[0] }}" onclick="redirect(this)">{{ v[0] }}</button></td>
+            {% endfor %}
+        </tr>
+        {% for data in products %}
+            {% for data in products %}
+                <div  class ="products">
+                    <div class="prodthumb"><img src="{{ data[4] }}"></div>
+                    <div class="productname" id="{{data[1]}}">{{ data[0] }}</div>
+                    <div class="costproduct">${{ data[3] }}</div>
+                    <button onclick="addToCart('{{ data[1] }}')">Add to cart</button>
+                </div>
+            {% endfor %} 
+        {% endfor %}
+        <script>
+            function redirect(category){
+                window.location.replace('./?category='+category.value);
+            }
+            function addToCart(id){
+            }
+        </script>
+    </body>
 </html>

@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template, session
 from user import User
+from homepage import HomePage
 from database import SQLHelper as Helper
 app = Flask(__name__)
 
@@ -36,9 +37,9 @@ def signin():
         return render_template('signin.html', message=' '.join(list(request.args['message'].split())))
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def indexPage():
-    return render_template('index.html')
+    return HomePage().fetchHomePage(helper)
 
 
 if __name__ == '__main__':
