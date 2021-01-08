@@ -21,8 +21,7 @@ class HomePage:
                                    categories=outCategories,
                                    products=outProducts,
                                    userSignedIn=self.userSignedIn)
-        except Exception as e:
-            print(e)
+        except Exception:
             return render_template('index.html',
                                    categories=dbHelper.query(
                                        'select distinct category from products'),

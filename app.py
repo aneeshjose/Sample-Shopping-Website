@@ -68,6 +68,11 @@ def search():
     return Search().search(helper)
 
 
+@app.route('/cart')
+def cart():
+    return Cart().displayCart(helper)
+
+
 if __name__ == '__main__':
     app.secret_key = "QWERTY"
     app.config['SESSION_TYPE'] = 'filesystem'

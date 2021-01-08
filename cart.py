@@ -1,4 +1,4 @@
-from flask import session, make_response, request
+from flask import session, make_response, request, render_template
 from user import User
 
 
@@ -33,3 +33,13 @@ class Cart:
             resp = make_response()
             resp.set_cookie('cart', available+','+prodId)
             return 'success'
+
+    def displayCart(self, dbHelper):
+        email = session['email']
+        cartProducts = dbHelper.query('select productid from cart where userid=\'{}\''
+                                      .format(email))
+        prodEnlarged = []
+        for id in cartProducts:
+            prodEnlarged.append(dbHelper.query(
+                "select * from products where id='{}'".format(id[0])))
+        return render_template('cart.html', products=prodEnlarged)

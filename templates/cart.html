@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+    {% for product in products %}
+        {% for data in product %}
+            <div  class ="products">
+                <div class="prodthumb"><img src="{{ data[4] }}"></div>
+                <div class="productname" id="{{ data[1] }}">{{ data[0] }}</div>
+                <div class="costproduct">${{ data[3] }}</div>
+                <div class ="productcategory">in {{ data[2] }}</div>
+                <button onclick="addToCart('{{ data[1] }}')">Add to cart</button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>
