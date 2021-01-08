@@ -14,14 +14,16 @@ class User:
         try:
             # whether the user already exists
             currentUser = dbHelper.query(
-                'select name from userauth where email=\'{}\' or phone={}'.format(email, phone))
+                'select name from userauth where email=\'{}\' or phone={}'
+                .format(email, phone))
             if(len(currentUser) > 0):
                 return render_template('signup.html', message="User already exists")
         except:
             pass
         try:
             # add the new user to database
-            if dbHelper.query('insert into userauth(name,phone,email,password) values(\'{}\',{},\'{}\',\'{}\')'.format(name, phone, email, password)):
+            if dbHelper.query('insert into userauth(name,phone,email,password) values(\'{}\',{},\'{}\',\'{}\')'
+                              .format(name, phone, email, password)):
                 return redirect(('signin?message=Registered+successfully'))
         except Exception as e:
             # error occured as a result of various reasons such as
@@ -44,8 +46,8 @@ class User:
                 # login successful add random session variables
                 randomString = ''.join(random.choices(
                     string.ascii_uppercase + string.digits, k=25))
-                dbHelper.query('insert into user_sessions(email,sessionid) values(\'{}\',\'{}\')'.format(
-                    email, randomString))
+                dbHelper.query('insert into user_sessions(email,sessionid) values(\'{}\',\'{}\')'
+                               .format(email, randomString))
                 session['email'] = email
                 session['auth_key'] = randomString
                 return redirect('/')
@@ -61,8 +63,8 @@ class User:
         # clear the session variables from local and db
         # pop cookies from local
         # and redirect back to sign in
-        dbHelper.query('delete from user_sessions where email=\'{}\' and sessionid=\'{}\''.format(
-            session['email'], session['auth_key']))
+        dbHelper.query('delete from user_sessions where email=\'{}\' and sessionid=\'{}\''
+                       .format(session['email'], session['auth_key']))
         resp = make_response()
         resp.set_cookie('cart', '')
         session.pop('email', None)
@@ -74,10 +76,13 @@ class User:
         try:
             email = session['email']
             auth_key = session['auth_key']
-
             if(email is None or auth_key is None):
+                # user is not signed in
                 raise Exception
-            if len(dbHelper.query('select * from user_sessions where email=\'{}\' and sessionid=\'{}\'')):
+
+            if len(dbHelper.query('select * from user_sessions where email=\'{}\' and sessionid=\'{}\''
+                                  .format(email, auth_key))) == 0:
+                # user credentials doesnot match
                 raise Exception
         except:
             return redirect(url_for('signin'))

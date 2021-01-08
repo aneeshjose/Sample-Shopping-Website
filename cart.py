@@ -6,18 +6,22 @@ class Cart:
     def addToCart(self, dbHelper, prodId):
 
         if session['email'] is not None:
+            # since the email is nol null, check the user session
+            # also matches the user session auth_key
             User().checkUser(dbHelper)
             # check whether the product is already added to cart by the user
             # if not added, insert the values
             #  if added, increment the count by 1
             count = dbHelper.query(
-                'select count(*) from cart where userid=\'{}\' and productid=\'{}\''.format(session['email'], prodId))
+                'select count(*) from cart where userid=\'{}\' and productid=\'{}\''
+                            .format(session['email'], prodId))
             if count[0][0] == 0:
-                dbHelper.query('insert into cart values(\'{}\',\'{}\',{})'.format(
-                    session['email'], prodId, 1))
+                dbHelper.query('insert into cart values(\'{}\',\'{}\',{})'
+                               .format(session['email'], prodId, 1))
                 return 'success'
             dbHelper.query(
-                'update cart set count=count+1 where userid=\'{}\' and productid=\'{}\''.format(session['email'], prodId))
+                'update cart set count=count+1 where userid=\'{}\' and productid=\'{}\''
+                .format(session['email'], prodId))
             return 'success'
         else:
             # The user has not signed in yet.
